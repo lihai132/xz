@@ -31,6 +31,7 @@ targets:
         ITSAppUsesNonExemptEncryption: NO
     settings:
       base:
+        TARGETED_DEVICE_FAMILY: '1'
         PRODUCT_BUNDLE_IDENTIFIER: com.localdemo.bocinterface
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
 schemes:
