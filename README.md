@@ -34,7 +34,7 @@
 4. 等待任务完成，下载 Artifacts 中的 **BOCDemo-unsigned-IPA**，解压得到 `BOCDemo-unsigned.ipa`。
 5. 该 IPA 尚未签名，不能直接点击安装。必须执行下面的本机签名步骤。
 
-流程会联网安装 XcodeGen，并使用 GitHub 提供的 Xcode 编译。本次交付尚未在 GitHub 云端执行这个流程；首次运行仍需要检查编译日志。私有仓库的云端运行受 GitHub 账户可用额度和计费规则约束。
+流程会联网安装 XcodeGen，并使用 GitHub 提供的 Xcode 编译。本次已在 GitHub Actions 实际编译通过，并生成 arm64、iPhone 设备版的未签名 IPA。构建记录：https://github.com/lihai132/xz/actions/runs/42558184191 。私有仓库的云端运行受 GitHub 账户可用额度和计费规则约束。
 
 编译成功后通过 Actions Artifact 下载未签名 IPA，保留 7 天。`BuildAssets/icons.json`（如存在）只用于还原通过文本连接上传的图标。
 
@@ -73,7 +73,7 @@ Windows 上分别使用 Chrome 和 Playwright WebKit 引擎检查：
 - 重载后保存状态，本地 file:// 资源加载。
 - 无应用脚本错误、无外部网络请求。
 
-WebKit 检查是 Windows 桌面引擎检查，不代表 iOS 18.7.1 真机验证，也不代表 Xcode 已编译通过。原生编译、安装、手机键盘和实际安全区域仍需在下一阶段核对。
+WebKit 检查是 Windows 桌面引擎检查，不代表 iOS 18.7.1 真机验证。本次另已完成 Xcode 设备目标编译及 IPA 包结构检查；Apple 签名、实际手机安装、键盘和安全区域仍需在下一阶段核对。
 
 ## 官方参考
 
@@ -82,3 +82,4 @@ WebKit 检查是 Windows 桌面引擎检查，不代表 iOS 18.7.1 真机验证�
 - 中国银行 App Store：https://apps.apple.com/cn/app/id399608199
 
 原银行 IPA 不包含在此工程中。请保留为个人本地原型用途。
+
