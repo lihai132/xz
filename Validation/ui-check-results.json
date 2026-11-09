@@ -1,0 +1,51 @@
+{
+  "engine": "Chrome on Windows",
+  "viewport": "390x844, dpr 3; emulated 47px/34px safe areas",
+  "nativeBuildTested": false,
+  "checks": [
+    {
+      "check": "home initial balance and no fixed demo label",
+      "result": "PASS"
+    },
+    {
+      "check": "transactions filter by income and month",
+      "result": "PASS"
+    },
+    {
+      "check": "invalid, fractional precision, exponent and insufficient amounts rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "recipient selection, escaped memo and cancel leaves balance unchanged",
+      "result": "PASS"
+    },
+    {
+      "check": "confirmed local transfer debits exact integer cents and records one transaction",
+      "result": "PASS"
+    },
+    {
+      "check": "local state persists across page reload",
+      "result": "PASS"
+    },
+    {
+      "check": "privacy setting and cancel/confirm reset flows",
+      "result": "PASS"
+    },
+    {
+      "check": "30 routes render without horizontal overflow at iPhone 13 logical size",
+      "result": "PASS"
+    },
+    {
+      "check": "search and navigation to service",
+      "result": "PASS"
+    },
+    {
+      "check": "file URL loads bundled assets and preserves local state",
+      "result": "PASS"
+    },
+    {
+      "check": "no JavaScript errors or external network requests",
+      "result": "PASS"
+    }
+  ]
+}

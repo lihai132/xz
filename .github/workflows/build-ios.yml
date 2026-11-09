@@ -1,0 +1,48 @@
+name: Build iPhone IPA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+    paths:
+      - 'App/**'
+      - 'Web/**'
+      - 'BuildAssets/**'
+      - 'scripts/**'
+      - 'project.yml'
+      - '.github/workflows/build-ios.yml'
+permissions:
+  contents: read
+concurrency:
+  group: ios-build-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore image files for connector uploads
+        run: python3 scripts/prepare_assets.py
+      - name: Install project generator
+        run: brew install xcodegen 2>&1 | tee setup.log
+      - name: Generate Xcode project
+        run: xcodegen generate 2>&1 | tee generation.log
+      - name: Compile device app without signing
+        run: >-
+          xcodebuild -project BOCDemo.xcodeproj -scheme BOCDemo
+          -configuration Release -sdk iphoneos -destination 'generic/platform=iOS'
+          -derivedDataPath build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build
+          2>&1 | tee build.log
+      - name: Package unsigned IPA for local signing
+        run: |
+          mkdir -p package/Payload
+          cp -R build/Build/Products/Release-iphoneos/BOCDemo.app package/Payload/
+          test -f package/Payload/BOCDemo.app/Web/index.html
+          plutil -lint package/Payload/BOCDemo.app/Info.plist
+          cd package
+          /usr/bin/zip -qr ../BOCDemo-unsigned.ipa Payload
+      - uses: actions/upload-artifact@v4
+        with:
+          name: BOCDemo-unsigned-IPA
+          path: BOCDemo-unsigned.ipa
+          retention-days: 7

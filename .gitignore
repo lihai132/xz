@@ -1,0 +1,13 @@
+build/
+package/
+*.xcodeproj/
+*.xcworkspace/
+App/Info.plist
+*.ipa
+.DS_Store
+xcuserdata/
+*.mobileprovision
+*.p12
+*.pem
+__pycache__/
+*.pyc
